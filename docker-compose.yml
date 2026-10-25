@@ -1,0 +1,17 @@
+# Optional: PostgreSQL only. The app itself runs with plain npm (see README).
+# Creates the 'cafeflow_pos' database; create the test database once with:
+#   docker compose exec db psql -U cafeflow -c "CREATE DATABASE cafeflow_test;"
+# Use a different password than the example below for anything beyond local development.
+services:
+  db:
+    image: postgres:16
+    environment:
+      POSTGRES_USER: cafeflow
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-change-me}
+      POSTGRES_DB: cafeflow_pos
+    ports:
+      - "5432:5432"
+    volumes:
+      - cafeflow_pgdata:/var/lib/postgresql/data
+volumes:
+  cafeflow_pgdata:
